@@ -4,9 +4,31 @@
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="MauiApp1.MoviePage"
              Title="MoviePage">
-    <toolkit:MediaElement
-        x:Name="mediaElement"
-        ShouldAutoPlay="True"
-        ShouldShowPlaybackControls="True"
-        Source="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" />
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <toolkit:MediaElement
+            x:Name="mediaElement"
+            Speed="{Binding Source={x:Reference speedSlider}, Path=Value, Mode=OneWay}"
+            ShouldAutoPlay="True"
+            ShouldShowPlaybackControls="True"
+            Source="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" />
+
+        <Grid Grid.Row="1" MaximumWidthRequest="600">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <Slider Minimum="0.5" Maximum="2.0" x:Name="speedSlider"
+                    VerticalOptions="Center"/>
+            <Label 
+                Grid.Column="1"
+                Margin="20,0,0,0"
+                VerticalOptions="Center"
+                Text="{Binding Source={x:Reference speedSlider}, Path=Value, StringFormat='Speed {0:p0}'}" />
+        </Grid>
+    </Grid>
 </ContentPage>
